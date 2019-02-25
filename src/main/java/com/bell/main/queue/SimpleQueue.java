@@ -1,11 +1,27 @@
 package com.bell.main.queue;
 
 import java.util.*;
+class Node<R> {
+    R data;
+    Node next;
 
+    Node(R data) {
+        this(data, null);
+    }
+
+     Node(R data, Node next) {
+        this.data = data;
+        this.next = next;
+    }
+    @Override
+    public String toString() {
+        return "\'" + this.data + "\'";
+    }
+}
 public class SimpleQueue<R>  {
 
-
-
+    Node goNext = null;
+    Node whoIsLast = null;
 
     /**
      * Inserts the specified element into this queue if it is possible to do so
@@ -25,7 +41,16 @@ public class SimpleQueue<R>  {
      *         prevents it from being added to this queue
      */
     public boolean add(R r){
-        return false;
+        Node node;
+        node = new Node(r);
+        if(this.whoIsLast != null) { // если очередь непустая
+            node.next = this.whoIsLast; // запомнил кто предыдущий
+            /*this.whoIsLast.next = node; // по ссылке обращаемся ПОКА ещё к предыдущему объекту*/
+        } else {// если очередь пустая
+            this.goNext = node;
+        }
+        this.whoIsLast = node; // указал, что теперь ты последний
+        return true;
     }
 
     /**
@@ -45,41 +70,59 @@ public class SimpleQueue<R>  {
      * @throws IllegalArgumentException if some property of this element
      *         prevents it from being added to this queue
      */
-    public boolean offer(R r) {return  false;};
+    public boolean offer(R r) {return  add(r);}
 
     /**
-     * Retrieves and removes the head of this queue.  This method differs
+     * Retrieves and removes the goNext of this queue.  This method differs
      * from {@link #poll poll} only in that it throws an exception if this
      * queue is empty.
      *
-     * @return the head of this queue
+     * @return the goNext of this queue
      * @throws NoSuchElementException if this queue is empty
      */
-    public R remove(){return null;}
+    public R remove(){return poll();}
 
     /**
-     * Retrieves and removes the head of this queue,
+     * Retrieves and removes the goNext of this queue,
      * or returns {@code null} if this queue is empty.
      *
-     * @return the head of this queue, or {@code null} if this queue is empty
+     * @return the goNext of this queue, or {@code null} if this queue is empty
      */
-    public R poll(){return null;}
+    public R poll() {
+        Node node = this.goNext;
+        this.goNext = this.goNext.next;
+        return  (R) node.data;
+    }
 
     /**
-     * Retrieves, but does not remove, the head of this queue.  This method
+     * Retrieves, but does not remove, the goNext of this queue.  This method
      * differs from {@link #peek peek} only in that it throws an exception
      * if this queue is empty.
      *
-     * @return the head of this queue
+     * @return the goNext of this queue
      * @throws NoSuchElementException if this queue is empty
      */
-    public R element() {return null;}
+    public R element() {return (R) this.goNext;}
 
     /**
-     * Retrieves, but does not remove, the head of this queue,
+     * Retrieves, but does not remove, the goNext of this queue,
      * or returns {@code null} if this queue is empty.
      *
-     * @return the head of this queue, or {@code null} if this queue is empty
+     * @return the goNext of this queue, or {@code null} if this queue is empty
      */
-    public R peek() {return null;}
+    public R peek() {return element();}
+
+    @Override
+    public String toString() {
+        StringBuilder buff = new StringBuilder(this.getClass().getSimpleName());
+        buff.append("{");
+        Node temp = this.whoIsLast;
+        while(temp != null) {
+            buff.append(temp.toString());
+            temp = temp.next;
+            if(temp != null) buff.append(", ");
+        }
+        buff.append("}");
+        return buff.toString();
+    }
 }
