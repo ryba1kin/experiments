@@ -1,6 +1,7 @@
 package com.bell.main.queue;
 
 import java.util.*;
+
 @SuppressWarnings({"WeakerAccess", "unused"})
 class Node<R> {
     R data;
@@ -10,7 +11,7 @@ class Node<R> {
         this(data, null);
     }
 
-     Node(R data, Node next) {
+    Node(R data, Node next) {
         this.data = data;
         this.next = next;
     }
@@ -20,8 +21,9 @@ class Node<R> {
         return "\'" + this.data + "\'";
     }
 }
+
 @SuppressWarnings({"unchecked", "WeakerAccess", "unused"})
-public class SimpleQueue<R>  {
+public class SimpleQueue<R> {
 
     private Node goNext = null;
     private Node whoIsLast = null;
@@ -34,19 +36,19 @@ public class SimpleQueue<R>  {
      *
      * @param r the element to add
      * @return {@code true} (as specified by {@link Collection#add})
-     * @throws IllegalStateException if the element cannot be added at this
-     *         time due to capacity restrictions
-     * @throws ClassCastException if the class of the specified element
-     *         prevents it from being added to this queue
-     * @throws NullPointerException if the specified element is null and
-     *         this queue does not permit null elements
+     * @throws IllegalStateException    if the element cannot be added at this
+     *                                  time due to capacity restrictions
+     * @throws ClassCastException       if the class of the specified element
+     *                                  prevents it from being added to this queue
+     * @throws NullPointerException     if the specified element is null and
+     *                                  this queue does not permit null elements
      * @throws IllegalArgumentException if some property of this element
-     *         prevents it from being added to this queue
+     *                                  prevents it from being added to this queue
      */
-    public boolean add(R r){
+    public boolean add(R r) {
         Node node;
         node = new Node<R>(r);
-        if(this.whoIsLast != null) { // если очередь непустая
+        if (this.whoIsLast != null) { // если очередь непустая
             node.next = this.whoIsLast; // запомнил кто предыдущий
             /*this.whoIsLast.next = node; // по ссылке обращаемся ПОКА ещё к предыдущему объекту*/
         } else {// если очередь пустая
@@ -65,15 +67,17 @@ public class SimpleQueue<R>  {
      *
      * @param r the element to add
      * @return {@code true} if the element was added to this queue, else
-     *         {@code false}
-     * @throws ClassCastException if the class of the specified element
-     *         prevents it from being added to this queue
-     * @throws NullPointerException if the specified element is null and
-     *         this queue does not permit null elements
+     * {@code false}
+     * @throws ClassCastException       if the class of the specified element
+     *                                  prevents it from being added to this queue
+     * @throws NullPointerException     if the specified element is null and
+     *                                  this queue does not permit null elements
      * @throws IllegalArgumentException if some property of this element
-     *         prevents it from being added to this queue
+     *                                  prevents it from being added to this queue
      */
-    public boolean offer(R r) {return  add(r);}
+    public boolean offer(R r) {
+        return add(r);
+    }
 
     /**
      * Retrieves and removes the goNext of this queue.  This method differs
@@ -83,7 +87,9 @@ public class SimpleQueue<R>  {
      * @return the goNext of this queue
      * @throws NoSuchElementException if this queue is empty
      */
-    public R remove(){return poll();}
+    public R remove() {
+        return poll();
+    }
 
     /**
      * Retrieves and removes the goNext of this queue,
@@ -94,7 +100,7 @@ public class SimpleQueue<R>  {
     public R poll() {
         Node node = this.goNext;
         this.goNext = this.goNext.next;
-        return  (R) node.data;
+        return (R) node.data;
     }
 
     /**
@@ -105,7 +111,9 @@ public class SimpleQueue<R>  {
      * @return the goNext of this queue
      * @throws NoSuchElementException if this queue is empty
      */
-    public R element() {return (R) this.goNext.data;}
+    public R element() {
+        return (R) this.goNext.data;
+    }
 
     /**
      * Retrieves, but does not remove, the goNext of this queue,
@@ -113,17 +121,19 @@ public class SimpleQueue<R>  {
      *
      * @return the goNext of this queue, or {@code null} if this queue is empty
      */
-    public R peek() {return element();}
+    public R peek() {
+        return element();
+    }
 
     @Override
     public String toString() {
         StringBuilder buff = new StringBuilder(this.getClass().getSimpleName());
         buff.append("{");
         Node temp = this.whoIsLast;
-        while(temp != null) {
+        while (temp != null) {
             buff.append(temp.toString());
             temp = temp.next;
-            if(temp != null) buff.append(", ");
+            if (temp != null) buff.append(", ");
         }
         buff.append("}");
         return buff.toString();
