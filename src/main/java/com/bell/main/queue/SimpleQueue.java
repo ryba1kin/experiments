@@ -1,6 +1,7 @@
 package com.bell.main.queue;
 
 import java.util.*;
+@SuppressWarnings({"WeakerAccess", "unused"})
 class Node<R> {
     R data;
     Node next;
@@ -13,15 +14,17 @@ class Node<R> {
         this.data = data;
         this.next = next;
     }
+
     @Override
     public String toString() {
         return "\'" + this.data + "\'";
     }
 }
+@SuppressWarnings({"unchecked", "WeakerAccess", "unused"})
 public class SimpleQueue<R>  {
 
-    Node goNext = null;
-    Node whoIsLast = null;
+    private Node goNext = null;
+    private Node whoIsLast = null;
 
     /**
      * Inserts the specified element into this queue if it is possible to do so
@@ -42,7 +45,7 @@ public class SimpleQueue<R>  {
      */
     public boolean add(R r){
         Node node;
-        node = new Node(r);
+        node = new Node<R>(r);
         if(this.whoIsLast != null) { // если очередь непустая
             node.next = this.whoIsLast; // запомнил кто предыдущий
             /*this.whoIsLast.next = node; // по ссылке обращаемся ПОКА ещё к предыдущему объекту*/
@@ -102,7 +105,7 @@ public class SimpleQueue<R>  {
      * @return the goNext of this queue
      * @throws NoSuchElementException if this queue is empty
      */
-    public R element() {return (R) this.goNext;}
+    public R element() {return (R) this.goNext.data;}
 
     /**
      * Retrieves, but does not remove, the goNext of this queue,
