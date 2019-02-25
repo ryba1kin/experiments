@@ -13,7 +13,7 @@ public class Main {
 //        System.out.println(queue.add(new Integer(7)));
 //        System.out.println(queue.add(new Integer(8)));
 //        System.out.println(queue.add(new Integer(9)));
-        SimpleQueue<String> queue = new SimpleQueue();
+        SimpleQueue<String> queue = new SimpleQueue<String>();
         System.out.println(queue.add("Иван"));
         System.out.println(queue.add("Петр"));
         System.out.println(queue.add("Марина"));
