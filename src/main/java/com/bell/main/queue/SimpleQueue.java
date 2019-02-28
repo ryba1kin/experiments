@@ -29,21 +29,21 @@ public class SimpleQueue<R> {
     private Node whoIsLast = null;
 
     /**
-     * Inserts the specified element into this queue if it is possible to do so
-     * immediately without violating capacity restrictions, returning
-     * {@code true} upon success and throwing an {@code IllegalStateException}
-     * if no space is currently available.
+     * Вставляет указанный элемент в эту очередь, если сделать это возможно
+     * без нарушения ограничений размера, возвращает {@code true} в случае успеха
+     * и выкидывает {@code IllegalStateException} если в данный момент размер
+     * очереди не поволяет этого сделать
      *
-     * @param r the element to add
-     * @return {@code true} (as specified by {@link Collection#add})
-     * @throws IllegalStateException    if the element cannot be added at this
-     *                                  time due to capacity restrictions
-     * @throws ClassCastException       if the class of the specified element
-     *                                  prevents it from being added to this queue
-     * @throws NullPointerException     if the specified element is null and
-     *                                  this queue does not permit null elements
-     * @throws IllegalArgumentException if some property of this element
-     *                                  prevents it from being added to this queue
+     * @param r элемент который добавляем
+     * @return {@code true} (как указано в {@link Collection#add})
+     * @throws IllegalStateException    если элемент не может быть добавлен сейчас
+     *                                  из-за ограничений по размеру очереди
+     * @throws ClassCastException       если класс указанного элемента не позволяет
+     *                                  добавить элемент в очередь
+     * @throws NullPointerException     если переданный элемент равен null и эта
+     *                                  очередь не разрешает null-элементы
+     * @throws IllegalArgumentException если какое-либо свойство элемента не
+     *                                  позволяет добавить его в очередь
      */
     public boolean add(R r) {
         Node node;
@@ -59,43 +59,42 @@ public class SimpleQueue<R> {
     }
 
     /**
-     * Inserts the specified element into this queue if it is possible to do
-     * so immediately without violating capacity restrictions.
-     * When using a capacity-restricted queue, this method is generally
-     * preferable to {@link #add}, which can fail to insert an element only
-     * by throwing an exception.
+     * Вставляет указанный элемент в эту очередь, если сделать это возможно
+     * без нарушения ограничений размера. Когда используется очередь с
+     * ограничением по размеру, то этот метод является предподчтительнее
+     * чем {@link #add}, который может не вставить элемент выкинув исключение
      *
-     * @param r the element to add
-     * @return {@code true} if the element was added to this queue, else
+     * @param r элемент который будет добавлен
+     * @return {@code true} если элемент был добавлен в эту очередь, иначе
      * {@code false}
-     * @throws ClassCastException       if the class of the specified element
-     *                                  prevents it from being added to this queue
-     * @throws NullPointerException     if the specified element is null and
-     *                                  this queue does not permit null elements
-     * @throws IllegalArgumentException if some property of this element
-     *                                  prevents it from being added to this queue
+     * @throws ClassCastException       если класс указанного элемента на позволяет
+     *                                  добавить элемент в очередь
+     * @throws NullPointerException     если переданный элемент равен null и эта
+     *                                  очередь не разрешает null-элементы
+     * @throws IllegalArgumentException если какое-либо свойство элемента не
+     *                                  позволяет добавить его в очередь
      */
     public boolean offer(R r) {
         return add(r);
     }
 
     /**
-     * Retrieves and removes the goNext of this queue.  This method differs
-     * from {@link #poll poll} only in that it throws an exception if this
-     * queue is empty.
+     * Возвращает но не удаляет goNext этой очереди.  Этод метод отличетается
+     * от {@link #poll poll} только тем что выкидывает исключение если эта
+     * очередь пустая.
      *
-     * @return the goNext of this queue
-     * @throws NoSuchElementException if this queue is empty
+     * @return goNext этой очереди
+     * @throws NoSuchElementException если очередь пустая
      */
     public R remove() {
         return poll();
     }
 
     /**
-     * Retrieves and removes the goNext of this queue,
-     * or returns {@code null} if this queue is empty.
+     * Получает и удаляет goNext этой очереди или
+     * или возвращает {@code null} если эта очередь пуста
      *
-     * @return the goNext of this queue, or {@code null} if this queue is empty
+     * @return goNext этой очереди, или {@code null} если эта очередь пуста
      */
     public R poll() {
         Node node = this.goNext;
@@ -104,22 +103,22 @@ public class SimpleQueue<R> {
     }
 
     /**
-     * Retrieves, but does not remove, the goNext of this queue.  This method
-     * differs from {@link #peek peek} only in that it throws an exception
-     * if this queue is empty.
+     * Возвращает но не удаляет goNext этой очереди.  Этот метод
+     * отличается от {@link #peek peek} только тем что выкидывает исключение
+     * если эта очередь пустая.
      *
-     * @return the goNext of this queue
-     * @throws NoSuchElementException if this queue is empty
+     * @return goNext этой очереди
+     * @throws NoSuchElementException если очередь пустая
      */
     public R element() {
         return (R) this.goNext.data;
     }
 
     /**
-     * Retrieves, but does not remove, the goNext of this queue,
-     * or returns {@code null} if this queue is empty.
+     * Возвращает но не удаляет goNext этой очереди,
+     * или возвращает {@code null} если очередь пустая.
      *
-     * @return the goNext of this queue, or {@code null} if this queue is empty
+     * @return goNext этой очереди, или {@code null} если очередь пустая
      */
     public R peek() {
         return element();
